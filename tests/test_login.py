@@ -1,10 +1,12 @@
 import allure
+import pytest
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from utils.data import LoginData, Messages
 
 
 @allure.epic("Тестирование страницы авторизации")
+@pytest.mark.auth
 class TestLogin:
     @allure.title("Успешная авторизация с действительными учетными данными")
     @allure.story("Позитивный тест на авторизацию")
