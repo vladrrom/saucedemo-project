@@ -1,0 +1,12 @@
+from selenium.webdriver.common.by import By
+
+class LoginLocators:
+    LOGIN_CONTAINER = (By.ID, "login_button_container")
+    USERNAME_INPUT = (By.ID, "user-name")
+    PASSWORD_INPUT = (By.ID, "password")
+    LOGIN_BUTTON = (By.ID, "login-button")
+    ERROR_MESSAGE = (By.CSS_SELECTOR, "h3[data-test='error']")
+
+class InventoryLocators:
+    INVENTORY_CONTAINER = (By.ID, "inventory_container")
+    PRODUCT_TITLE = (By.CSS_SELECTOR, "span[data-test='title']")

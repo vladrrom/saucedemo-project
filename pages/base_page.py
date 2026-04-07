@@ -2,12 +2,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
+from utils.data import Timeouts
+
 class BasePage:
-    timeout = 10
-    
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(self.driver, self.timeout)
+        self.wait = WebDriverWait(self.driver, Timeouts.EXPLICIT_WAIT)
 
     def open(self, url):
         self.driver.get(url)

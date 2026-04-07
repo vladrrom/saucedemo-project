@@ -1,31 +1,23 @@
-from selenium.webdriver.common.by import By
-
 from pages.base_page import BasePage
+from utils.data import Urls
+from utils.locators import LoginLocators
 
 
 class LoginPage(BasePage):
-    URL = "https://www.saucedemo.com/"
-
-    LOGIN_CONTAINER = (By.ID, "login_button_container")
-    USERNAME_INPUT = (By.ID, "user-name")
-    PASSWORD_INPUT = (By.ID, "password")
-    LOGIN_BUTTON = (By.ID, "login-button")
-    ERROR_MESSAGE = (By.CSS_SELECTOR, "h3[data-test='error']")
-
     def open_login_page(self):
-        self.open(self.URL)
+        self.open(Urls.BASE_URL)
         return self
 
     def click_login_button(self):
-        self.click(self.LOGIN_BUTTON)
+        self.click(LoginLocators.LOGIN_BUTTON)
         return self
         
     def enter_username(self, username):
-        self.find(self.USERNAME_INPUT).send_keys(username)
+        self.find(LoginLocators.USERNAME_INPUT).send_keys(username)
         return self
 
     def enter_password(self, password):
-        self.find(self.PASSWORD_INPUT).send_keys(password)
+        self.find(LoginLocators.PASSWORD_INPUT).send_keys(password)
         return self
 
     def login(self, username, password):
@@ -35,11 +27,11 @@ class LoginPage(BasePage):
         return self
         
     def get_error_message(self):
-        return self.get_text(self.ERROR_MESSAGE)
+        return self.get_text(LoginLocators.ERROR_MESSAGE)
     
     def is_login_page_displayed(self):
         return (
-            self.is_visible(self.LOGIN_CONTAINER) and
-            self.is_visible(self.LOGIN_BUTTON) and
-            self.get_current_url() == self.URL
+            self.is_visible(LoginLocators.LOGIN_CONTAINER) and
+            self.is_visible(LoginLocators.LOGIN_BUTTON) and
+            self.get_current_url() == Urls.BASE_URL
         )
