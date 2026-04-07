@@ -10,3 +10,6 @@ class BasePage:
 
     def click(self, locator):
         self.find(locator).click()
+        
+    def get_text(self, locator):
+        return self.find(locator).text
