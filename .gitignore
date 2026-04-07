@@ -204,4 +204,8 @@ pip-selfcheck.json
 .history
 .ionide
 
+### Allure
+allure-results/
+allure-report/
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,venv
