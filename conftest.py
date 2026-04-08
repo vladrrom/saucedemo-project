@@ -1,3 +1,4 @@
+import os
 import pytest
 import allure
 from selenium import webdriver
@@ -11,21 +12,33 @@ def driver():
     options = webdriver.ChromeOptions()
     options.add_argument("--incognito")
     options.add_argument("--window-size=1440,1080")
-    options.add_argument("--headless")
-    service = Service(executable_path=ChromeDriverManager().install())
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+
+    if os.getenv("RUN_IN_DOCKER") == "true":
+        options.binary_location = "/usr/bin/chromium"
+        service = Service("/usr/bin/chromedriver")
+    else:
+        service = Service(ChromeDriverManager().install())
+        
     driver = webdriver.Chrome(service=service, options=options)
+
     yield driver
-    
-    attach = driver.get_screenshot_as_png()
-    allure.attach(
-        attach,
-        name=f"Screenshot {datetime.today}",
-        attachment_type=allure.attachment_type.PNG,
-    )
-    allure.attach(
-        driver.page_source,
-        name=f"Page {datetime.today}",
-        attachment_type=allure.attachment_type.HTML,
-    )
-    
+
     driver.quit()
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call" and report.failed:
+        driver = item.funcargs.get("driver")
+        if driver:
+            allure.attach(
+                driver.get_screenshot_as_png(),
+                name="failure_screenshot",
+                attachment_type=allure.attachment_type.PNG,
+            )
