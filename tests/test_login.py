@@ -19,7 +19,7 @@ class TestLogin:
             login.open_login_page()
             
         with allure.step("Проверить, отображается ли страница входа"):
-            login.is_login_page_displayed()
+            assert login.is_login_page_displayed()
             
         with allure.step("Выполнить вход с действительными учетными данными"):
             login.login(LoginData.VALID_LOGIN, LoginData.VALID_PASSWORD)
@@ -38,7 +38,7 @@ class TestLogin:
             login.open_login_page()
             
         with allure.step("Проверить, отображается ли страница входа"):
-            login.is_login_page_displayed()
+            assert login.is_login_page_displayed()
             
         with allure.step("Выполнить вход с неправильным паролем"):
             login.login(LoginData.VALID_LOGIN, LoginData.WRONG_PASSWORD)
@@ -57,7 +57,8 @@ class TestLogin:
             login.open_login_page()
             
         with allure.step("Проверить, отображается ли страница входа"):
-            login.is_login_page_displayed()
+            assert login.is_login_page_displayed()
+            
         with allure.step("Выполнить вход с заблокированным пользователем"):
             login.login(LoginData.LOCKED_LOGIN, LoginData.VALID_PASSWORD)
         
@@ -75,7 +76,7 @@ class TestLogin:
             login.open_login_page()
             
         with allure.step("Проверить, отображается ли страница входа"):
-            login.is_login_page_displayed()
+            assert login.is_login_page_displayed()
             
         with allure.step("Нажать кнопку входа без заполнения полей"):
             login.click_login_button()
@@ -94,7 +95,7 @@ class TestLogin:
             login.open_login_page()
             
         with allure.step("Проверить, отображается ли страница входа"):
-            login.is_login_page_displayed()
+            assert login.is_login_page_displayed()
             
         with allure.step("Выполнить вход с пользователем-гличом"):
             login.login(LoginData.GLITCH_LOGIN, LoginData.VALID_PASSWORD)
