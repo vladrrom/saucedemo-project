@@ -42,11 +42,11 @@ pytest
 ## Запуск через Docker
 ```
 docker build -t saucedemo-tests .
-docker run --rm saucedemo-tests
+docker run --rm -v "/$(pwd)/allure-results:/app/allure-results" saucedemo-tests
 ```
 
 ## Allure Report
 Для просмотра Allure-отчёта:
 ```
-allure serve .\allure-results
+allure serve allure-results
 ```
